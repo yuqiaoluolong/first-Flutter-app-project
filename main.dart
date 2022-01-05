@@ -1,21 +1,25 @@
-import 'package:flutter/material.dart';		//import material library
+// ignore_for_file: unnecessary_new
 
-void main() => runApp(new MyApp());		//main()主函数，主要就是运行下面写的MyApp应用。
-					//=>是Dart 中单行函数或方法的简写。
+import 'package:flutter/material.dart';
+import 'package:english_words/english_words.dart';	//新增引用语句。会提示缺失，如果没有下载plugin的话
 
-class MyApp extends StatelessWidget {		//MyApp继承了StatelessWidget，本身成为欸了一个widget
-  @override				//在 Flutter 中，大多数东西都是 widget，包括对齐 (alignment)、填充 (padding) 和布局 (layout)。
-  Widget build(BuildContext context) {		//一个 widget 的主要工作是提供一个 build() 方法来描述如何根据其他较低级别的 widgets 来显示自己。
-    return new MaterialApp(			
+void main() => runApp(new MyApp());
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final wordPair = new WordPair.random(); 	// 新增了这一行
+    return new MaterialApp(
       title: 'Welcome to Flutter',
-      home: new Scaffold(			//Scaffold: Scaffold 是 Material library 中提供的一个 widget，它提供了默认的导航栏、标题和包含主屏幕 widget 树的 body 属性。widget 树可以很复杂。
-        appBar: new AppBar(			//appBar
-          title: const Text('Welcome to Flutter'),	//title
+      home: new Scaffold(
+        appBar: new AppBar(
+          title: new Text('Welcome to Flutter'),
         ),
-        body: const Center(			//body
-          child: const Text('Hello World'),
+        body: new Center(    			// 这里把之前的 "const" 换成了 "new". 子对象已经不是常量，那就不能再用 const 了。
+          //child: const Text('Hello World'),   	// 我们不用这样的方式生成文字了
+          child: new Text(wordPair.asPascalCase),  	// 这是新的文字生成方式
         ),
       ),
     );
   }
-}	
+}
